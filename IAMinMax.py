@@ -35,7 +35,7 @@ class IAMinMax:
                     copyBoard = copy.deepcopy(board)
                     copyBoard.placePawn(self.__id, i)
                     newEval = self.minmax(copyBoard, depth - 1, False)
-                maxEval = max(maxEval, newEval)
+                    maxEval = max(maxEval, newEval)
             return maxEval
         else:
             minEval = math.inf
