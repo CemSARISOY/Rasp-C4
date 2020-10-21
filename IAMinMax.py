@@ -17,7 +17,7 @@ class IAMinMax:
         for i in range(7):
             if(board.isValid(i)):
                 copyBoard = copy.deepcopy(board)
-                copyBoard.placePawn(self, i)
+                copyBoard.placePawn(self.__id, i)
                 score = self.minmax(copyBoard, self.__depth, False)
                 if(score > bestScore):
                     bestScore = score
