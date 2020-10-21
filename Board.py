@@ -11,7 +11,7 @@ class Board:
         """
         return self.__board[0][col] == 0
 
-    def placePawn(self, player, col):
+    def placePawn(self, idPlayer, col):
         """
         Pré-requis : Un joueur et un entier représentant une colonne du plateau
         Résultat : Place le pion du joueur donné dans la colonne donnée
@@ -19,7 +19,7 @@ class Board:
         i = 0
         while(i < 5 and self.__board[i+1][col] == 0):
             i = i+1
-        self.__board[i][col] = player.getId()
+        self.__board[i][col] = idPlayer
 
     # Detecte si un joueur a gagné
 
@@ -98,6 +98,8 @@ class Board:
         Le score est calculé par le nombre de pions alignés et si l'alignement peut être continué
         """
         somme = 0
+
+
 
         # Evaluation des colonnes
         for j in range(7):

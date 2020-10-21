@@ -33,16 +33,16 @@ class IAMinMax:
             for i in range(7):
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
-                    copyBoard.placePawn(self, i)
+                    copyBoard.placePawn(self.__id, i)
                     newEval = self.minmax(copyBoard, depth - 1, False)
-                    maxEval = max(maxEval, newEval)
+                maxEval = max(maxEval, newEval)
             return maxEval
         else:
             minEval = math.inf
             for i in range(7):
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
-                    copyBoard.placePawn(self, i)
+                    copyBoard.placePawn(1, i)
                     newEval = self.minmax(copyBoard, depth - 1, True)
                     minEval = min(minEval, newEval)
             return minEval

@@ -17,7 +17,7 @@ class Game:
                 col = self.__players[self.__turn].play(self.__board)
                 if(self.__board.isValid(col)):
                     played = True
-            self.__board.placePawn(self.__players[self.__turn], col)
+            self.__board.placePawn(self.__players[self.__turn].getId(), col)
             if(self.__turn == 0):
                 self.__turn = 1
             else:
