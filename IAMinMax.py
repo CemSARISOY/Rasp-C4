@@ -18,13 +18,14 @@ class IAMinMax:
             if(board.isValid(i)):
                 copyBoard = copy.deepcopy(board)
                 copyBoard.placePawn(self.__id, i)
-                score = self.minmax(copyBoard, self.__depth, False)
+                score = self.minmax(
+                    copyBoard, self.__depth, -math.inf, math.inf, False)
                 if(score > bestScore):
                     bestScore = score
                     colToPlay = i
         return colToPlay
 
-    def minmax(self, board, depth, maximizing):
+    def minmax(self, board, depth, alpha, beta, maximizing):
         if(depth == 0 or board.isOver()):
             return board.evaluation(self.__id)
 
@@ -34,8 +35,12 @@ class IAMinMax:
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
                     copyBoard.placePawn(self.__id, i)
-                    newEval = self.minmax(copyBoard, depth - 1, False)
+                    newEval = self.minmax(
+                        copyBoard, depth - 1, alpha, beta, False)
                     maxEval = max(maxEval, newEval)
+                    alpha = max(alpha, newEval)
+                    if (beta <= alpha):
+                        break
             return maxEval
         else:
             minEval = math.inf
@@ -43,6 +48,10 @@ class IAMinMax:
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
                     copyBoard.placePawn(1, i)
-                    newEval = self.minmax(copyBoard, depth - 1, True)
+                    newEval = self.minmax(
+                        copyBoard, depth - 1, alpha, beta, True)
                     minEval = min(minEval, newEval)
+                    beta = min(beta, newEval)
+                    if(beta <= alpha):
+                        break
             return minEval
