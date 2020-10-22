@@ -99,8 +99,6 @@ class Board:
         """
         somme = 0
 
-
-
         # Evaluation des colonnes
         for j in range(7):
             i = 5
@@ -110,10 +108,10 @@ class Board:
                     while(i-count >= 0 and count < 4 and self.__board[i-count][j] == self.__board[i][j]):
                         count = count + 1
                     if(self.__board[i][j] == idJoueur):
-                        if(i-count >= 0 and self.__board[i-count][j] == 0):
+                        if(count == 4 or (i-count >= 0 and self.__board[i-count][j] == 0)):
                             somme = somme + self.returnEval(count)
                     else:
-                        if(i-count >= 0 and self.__board[i-count][j] == 0):
+                        if(count == 4 or (i-count >= 0 and self.__board[i-count][j] == 0)):
                             somme = somme - self.returnEval(count)
                 i = i - count
 
@@ -126,10 +124,10 @@ class Board:
                     while(j+count < 7 and count < 4 and self.__board[i][j+count] == self.__board[i][j]):
                         count = count + 1
                     if(self.__board[i][j] == idJoueur):
-                        if((j-1 >= 0 and self.__board[i][j-1] == 0 and (i == 5 or self.__board[i+1][j-1] != 0)) or (j+count < 7 and self.__board[i][j+count] == 0 and (i == 5 or self.__board[i+1][j+count] != 0))):
+                        if(count == 4 or (j-1 >= 0 and self.__board[i][j-1] == 0 and (i == 5 or self.__board[i+1][j-1] != 0)) or (j+count < 7 and self.__board[i][j+count] == 0 and (i == 5 or self.__board[i+1][j+count] != 0))):
                             somme = somme + self.returnEval(count)
                     else:
-                        if((j-1 >= 0 and self.__board[i][j-1] == 0 and (i == 5 or self.__board[i+1][j-1] != 0)) or (j+count < 7 and self.__board[i][j+count] == 0 and (i == 5 or self.__board[i+1][j+count] != 0))):
+                        if(count == 4 or (j-1 >= 0 and self.__board[i][j-1] == 0 and (i == 5 or self.__board[i+1][j-1] != 0)) or (j+count < 7 and self.__board[i][j+count] == 0 and (i == 5 or self.__board[i+1][j+count] != 0))):
                             somme = somme - self.returnEval(count)
                 j = j + count
 
@@ -138,13 +136,13 @@ class Board:
             for j in range(7):
                 count = 1
                 if(self.__board[i][j] != 0):
-                    while(j+count < 7 and i-count >= 0 and self.__board[i-count][j+count] == self.__board[i][j]):
+                    while(j+count < 7 and i-count >= 0 and count < 4 and self.__board[i-count][j+count] == self.__board[i][j]):
                         count = count + 1
                     if(self.__board[i][j] == idJoueur):
-                        if((j-1 >= 0 and i+1 < 6 and self.__board[i+1][j-1] == 0 and (i == 4 or self.__board[i+2][j-1] != 0)) or (j+count < 7 and i-count >= 0 and self.__board[i-count][j+count] == 0 and (self.__board[i-count+1][j+count] != 0))):
+                        if(count == 4 or (j-1 >= 0 and i+1 < 6 and self.__board[i+1][j-1] == 0 and (i == 4 or self.__board[i+2][j-1] != 0)) or (j+count < 7 and i-count >= 0 and self.__board[i-count][j+count] == 0 and (self.__board[i-count+1][j+count] != 0))):
                             somme = somme + self.returnEval(count)
                     else:
-                        if((j-1 >= 0 and i+1 < 6 and self.__board[i+1][j-1] == 0 and (i == 4 or self.__board[i+2][j-1] != 0)) or (j+count < 7 and i-count >= 0 and self.__board[i-count][j+count] == 0 and (self.__board[i-count+1][j+count] != 0))):
+                        if(count == 4 or (j-1 >= 0 and i+1 < 6 and self.__board[i+1][j-1] == 0 and (i == 4 or self.__board[i+2][j-1] != 0)) or (j+count < 7 and i-count >= 0 and self.__board[i-count][j+count] == 0 and (self.__board[i-count+1][j+count] != 0))):
                             somme = somme - self.returnEval(count)
 
         # Evaluation de la diagonale haut gauche
@@ -152,13 +150,13 @@ class Board:
             for j in range(6, -1, -1):
                 count = 1
                 if(self.__board[i][j] != 0):
-                    while(j-count >= 0 and i-count >= 0 and self.__board[i-count][j-count] == self.__board[i][j]):
+                    while(j-count >= 0 and i-count >= 0 and count < 4 and self.__board[i-count][j-count] == self.__board[i][j]):
                         count = count + 1
                     if(self.__board[i][j] == idJoueur):
-                        if((j+1 < 7 and i+1 < 6 and self.__board[i+1][j+1] == 0 and (i == 4 or self.__board[i+2][j+1] != 0)) or (j-count >= 0 and i-count >= 0 and self.__board[i-count][j-count] == 0 and (self.__board[i-count+1][j-count] != 0))):
+                        if(count == 4 or (j+1 < 7 and i+1 < 6 and self.__board[i+1][j+1] == 0 and (i == 4 or self.__board[i+2][j+1] != 0)) or (j-count >= 0 and i-count >= 0 and self.__board[i-count][j-count] == 0 and (self.__board[i-count+1][j-count] != 0))):
                             somme = somme + self.returnEval(count)
                     else:
-                        if((j+1 < 7 and i+1 < 6 and self.__board[i+1][j+1] == 0 and (i == 4 or self.__board[i+2][j+1] != 0)) or (j-count >= 0 and i-count >= 0 and self.__board[i-count][j-count] == 0 and (self.__board[i-count+1][j-count] != 0))):
+                        if(count == 4 or (j+1 < 7 and i+1 < 6 and self.__board[i+1][j+1] == 0 and (i == 4 or self.__board[i+2][j+1] != 0)) or (j-count >= 0 and i-count >= 0 and self.__board[i-count][j-count] == 0 and (self.__board[i-count+1][j-count] != 0))):
                             somme = somme - self.returnEval(count)
 
         return somme
