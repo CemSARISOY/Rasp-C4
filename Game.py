@@ -17,18 +17,13 @@ class Game:
                 col = self.__players[self.__turn].play(self.__board)
                 if(self.__board.isValid(col)):
                     played = True
-            self.__board.placePawn(self.__players[self.__turn].getId(), col)
+            hasWon = self.__board.placePawn(
+                self.__players[self.__turn].getId(), col)
             if(self.__turn == 0):
                 self.__turn = 1
             else:
                 self.__turn = 0
             self.__board.printBoard()
-
-            gagnant = self.__board.detectWin()
-            if(gagnant != 0):
-                print("Gagnant : "+str(gagnant))
+            if(hasWon):
+                print("Gagnant : ", self.__players[self.__turn].getId())
                 self.__playing = False
-
-# 2 jetons aligné = 1
-# 3 jetons aligné = 5
-# 4 jetons aligné = 200

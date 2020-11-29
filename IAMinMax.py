@@ -1,6 +1,7 @@
 import math
 import copy
 import random
+import time
 
 
 class IAMinMax:
@@ -14,6 +15,7 @@ class IAMinMax:
     def play(self, board):
         bestScore = -math.inf
         colToPlay = 0
+        start = time.time()
         for i in range(7):
             if(board.isValid(i)):
                 copyBoard = copy.deepcopy(board)
@@ -23,11 +25,14 @@ class IAMinMax:
                 if(score > bestScore):
                     bestScore = score
                     colToPlay = i
+        end = time.time()
+        print("Temps d'éxécution IA : " +
+              str(round(end - start, 2)) + " secondes")
         return colToPlay
 
     def minmax(self, board, depth, alpha, beta, maximizing):
         if(depth == 0 or board.isOver()):
-            return board.evaluation(self.__id)
+            return board.getEvaluation()
 
         if(maximizing):
             maxEval = -math.inf
