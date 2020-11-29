@@ -19,11 +19,11 @@ class Game:
                     played = True
             hasWon = self.__board.placePawn(
                 self.__players[self.__turn].getId(), col)
-            if(self.__turn == 0):
-                self.__turn = 1
-            else:
-                self.__turn = 0
             self.__board.printBoard()
             if(hasWon):
                 print("Gagnant : ", self.__players[self.__turn].getId())
                 self.__playing = False
+            if(self.__turn == 0):
+                self.__turn = 1
+            else:
+                self.__turn = 0
