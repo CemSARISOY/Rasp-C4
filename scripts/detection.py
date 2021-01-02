@@ -23,7 +23,6 @@ maskYellow = cv.inRange(img, lowerYellow, upperYellow)
 outputRed = cv.bitwise_and(img, img, mask=maskRed)
 gimg = cv.cvtColor(outputRed, cv.COLOR_BGR2GRAY)
 
-
 circlesRed = cv.HoughCircles(gimg, cv.HOUGH_GRADIENT, 1, 150,
                              param1=1, param2=20, minRadius=60, maxRadius=120)
 
@@ -45,16 +44,17 @@ for i in circlesRed[0, :]:
     colonne = x // l
     hauteur = y // h
     tabRed.append((int(colonne), int(hauteur)))
-
-
 outputYellow = cv.bitwise_and(img, img, mask=maskYellow)
 gimg = cv.cvtColor(outputYellow, cv.COLOR_BGR2GRAY)
 circlesYellow = cv.HoughCircles(gimg, cv.HOUGH_GRADIENT, 1, 150,
                                 param1=1, param2=20, minRadius=60, maxRadius=120)
-
-
+circles = np.uint16(np.around(circlesYellow))
+for i in circles[0, :]:
+    # draw the outer circle
+    cv.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
+    # draw the center of the circle
+    cv.circle(cimg, (i[0], i[1]), 2, (0, 0, 255), 3)
 tabYellow = []
-circlesYellow = np.uint16(np.around(circlesYellow))
 for i in circlesYellow[0, :]:
     x = i[0]
     y = i[1]
@@ -63,7 +63,6 @@ for i in circlesYellow[0, :]:
     colonne = x // l
     hauteur = y // h
     tabYellow.append((int(colonne), int(hauteur)))
-
 # print(tabRed)  # Red = 1
 # print(tabYellow)  # Yellow =2
 

@@ -1,15 +1,32 @@
-from Player import Player
-from Board import Board
+from IAMinMax import *
+from Player import *
+from Board import *
+import random
 
 
 class Game:
-    def __init__(self, p1, p2):
+    def __init__(self,  commandLine=False, playerOnly=False, iaDepth=5):
         self.__board = Board()
-        self.__players = [p1, p2]
-        self.__turn = 0
+        if(playerOnly and not commandLine):
+            raise NotImplementedError
+        if(playerOnly):
+            self.__players = [
+                Player(1, commandLine),
+                Player(2, commandLine)
+            ]
+        else:
+            self.__players = [
+                Player(1, commandLine),
+                IAMinMax(2, iaDepth)
+            ]
+        self.__turn = random.randint(0, 1)
         self.__playing = True
 
     def run(self):
+        """
+        Résultat :
+            Joue une partie de Puissance4
+        """
         while(self.__playing):
             played = False
             col = 0

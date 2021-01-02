@@ -1,46 +1,47 @@
-import math
 import copy
-import random
 import time
+from Player import Player
 
 
-class IAMinMax:
+class IAMinMax(Player):
     def __init__(self, id, depth):
-        self.__id = id
+        super().__init__(id)
         self.__depth = depth
 
-    def getId(self):
-        return self.__id
-
     def play(self, board):
-        bestScore = -math.inf
+        """
+        Pré-requis :
+            board (Board) : Représente le plateau dans lequel l'IA doit jouer
+        Résultat :
+            Retourne la colonne choisie par l'IA grâce à un algorithme MinMax
+        """
+        bestScore = -10000
         colToPlay = 0
         start = time.time()
         for i in range(7):
             if(board.isValid(i)):
                 copyBoard = copy.deepcopy(board)
-                copyBoard.placePawn(self.__id, i)
-                score = self.minmax(
-                    copyBoard, self.__depth, -math.inf, math.inf, False)
+                copyBoard.placePawn(self.getId(), i)
+                score = self.__minmax(
+                    copyBoard, self.__depth, -10000, 10000, False)
                 if(score > bestScore):
                     bestScore = score
                     colToPlay = i
         end = time.time()
-        print("Temps d'éxécution IA : " +
-              str(round(end - start, 2)) + " secondes")
+        print("Temps d'éxécution IA : ", round(end - start, 2), " secondes")
         return colToPlay
 
-    def minmax(self, board, depth, alpha, beta, maximizing):
+    def __minmax(self, board, depth, alpha, beta, maximizing):
         if(depth == 0 or board.isOver()):
             return board.getEvaluation()
 
         if(maximizing):
-            maxEval = -math.inf
+            maxEval = -10000
             for i in range(7):
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
-                    copyBoard.placePawn(self.__id, i)
-                    newEval = self.minmax(
+                    copyBoard.placePawn(self.getId(), i)
+                    newEval = self.__minmax(
                         copyBoard, depth - 1, alpha, beta, False)
                     maxEval = max(maxEval, newEval)
                     alpha = max(alpha, newEval)
@@ -48,12 +49,12 @@ class IAMinMax:
                         break
             return maxEval
         else:
-            minEval = math.inf
+            minEval = 10000
             for i in range(7):
                 if(board.isValid(i)):
                     copyBoard = copy.deepcopy(board)
                     copyBoard.placePawn(1, i)
-                    newEval = self.minmax(
+                    newEval = self.__minmax(
                         copyBoard, depth - 1, alpha, beta, True)
                     minEval = min(minEval, newEval)
                     beta = min(beta, newEval)
