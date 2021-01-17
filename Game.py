@@ -40,7 +40,9 @@ class Game:
             if(hasWon):
                 print("Gagnant : ", self.__players[self.__turn].getId())
                 self.__playing = False
-            if(self.__turn == 0):
-                self.__turn = 1
-            else:
-                self.__turn = 0
+            if(self.__playing):
+                if(self.__turn == 0):
+                    self.__turn = 1
+                else:
+                    self.__turn = 0
+        return self.__players[self.__turn].getId()
