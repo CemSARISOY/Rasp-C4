@@ -61,8 +61,8 @@ try:
         setText("La partie va\ncommencer !")
         time.sleep(1)
 
-        # game = Game(iaDepth=tabDifficulty[i])  # Partie réelle contre IA
-        game = Game(commandLine=True)  # Partie terminal contre IA
+        game = Game(iaDepth=tabDifficulty[i])  # Partie réelle contre IA
+        # game = Game(commandLine=True)  # Partie terminal contre IA
         # game = Game(commandLine=True, playerOnly=True)  # Partie terminal contre Joueur
         winner = game.run()
         score[winner - 1] = score[winner - 1] + 1

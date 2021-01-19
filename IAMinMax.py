@@ -31,7 +31,7 @@ class IAMinMax(Player):
                     colToPlay = i
         end = time.time()
         print("Temps d'éxécution IA : ", round(end - start, 2), " secondes")
-        colString = "L'IA joue la\ncolonne : " + str(colToPlay)
+        colString = "L'IA joue la\ncolonne : " + str(colToPlay + 1)
         setText(colString)
         time.sleep(1)
         return colToPlay

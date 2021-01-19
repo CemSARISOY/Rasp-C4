@@ -38,11 +38,11 @@ class Player:
                 while (readButton(button) == 0):
                     time.sleep(0.1)
                 offLED(led)
-                setText("A l'adversaire !")
+                setText("A\nl'adversaire")
                 differenceTab = []
                 col = -1
                 while(col == -1):
-                    os.system("raspistill -o plateau.png")
+                    #os.system("raspistill -o plateau.png")
                     os.system("python3.6 ./scripts/detection.py plateau")
 
                     while(not os.path.exists("tab.txt")):  # Bloquer
