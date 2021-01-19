@@ -27,7 +27,7 @@ class Player:
             sinon retourne la colonne detectée grâce à la photo prise.
         """
         led = 7
-        setRGB(50,150,0)
+        setRGB(50, 150, 0)
         setText("C'est a votre\ntour !")
         button = 2
         initButton(button)
@@ -50,7 +50,8 @@ class Player:
                     with io.open("tab.txt", mode="r", encoding="utf8") as f:
                         text = f.read()
 
-                    tab = json.loads(text)  # parse les données du fichier tab.txt
+                    # parse les données du fichier tab.txt
+                    tab = json.loads(text)
                     os.remove("tab.txt")
 
                     # fonction de detection de différence
