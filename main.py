@@ -30,13 +30,13 @@ try:
             while(readButton(button) == 0):
                 waitedTime = time.time()
                 try:
-                    if(round(waitedTime - pressedTime, 2) > 0.3):
+                    if(round(waitedTime - pressedTime, 2) > 0.3 and alreadyPressed):
                         pressedOnce = True
                         alreadyPressed = False
                         i = i + 1
                         if(i == 3):
                             i = 0
-                        diffString = "Difficulte ", (i+1)
+                        diffString = "Difficulte " + str(i+1)
                         setText(diffString)
                 except:
                     pass
@@ -48,7 +48,7 @@ try:
             if(alreadyPressed and pressedOnce):
                 choisi = True
             else:
-                pressedOnce = True
+                alreadyPressed = True
         # -- Fin choix de difficulté
 
         if(oldDifficulty != -1 and oldDifficulty != tabDifficulty[i]):
@@ -61,8 +61,8 @@ try:
         setText("La partie va\ncommencer !")
         time.sleep(1)
 
-        game = Game(iaDepth=tabDifficulty[i])  # Partie réelle contre IA
-        # game = Game(commandLine=True)  # Partie terminal contre IA
+        # game = Game(iaDepth=tabDifficulty[i])  # Partie réelle contre IA
+        game = Game(commandLine=True)  # Partie terminal contre IA
         # game = Game(commandLine=True, playerOnly=True)  # Partie terminal contre Joueur
         winner = game.run()
         score[winner - 1] = score[winner - 1] + 1
